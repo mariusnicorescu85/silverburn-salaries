@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Silverburn Dashboard - Multi-Format</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Employee Payment Report</h1>
+        <p>🔄 Multi-Format Support (July & August+)</p>
+        <p>Last Updated: <span id="lastUpdated">Not yet loaded</span></p>
+        <div id="formatStatus" class="format-status">
+          Format Detection: <span id="detectedFormat">Waiting for data...</span>
+        </div>
+      </div>
+
+      <div class="api-info">
+        <h3>🔗 N8N Integration Instructions</h3>
+        <p>
+          <strong
+            >Updated for new Brava CSV format! This dashboard now automatically
+            detects and handles both formats:</strong
+          >
+        </p>
+        <ul>
+          <li>📅 <strong>July & Earlier:</strong> Original format</li>
+          <li>🆕 <strong>August & Later:</strong> New Brava CSV format</li>
+        </ul>
+
+        <div class="code-block">
+          <strong>Node Type:</strong> HTTP Request<br />
+          <strong>Method:</strong> POST<br />
+          <strong>URL:</strong> [YOUR_HOSTED_URL]/receive-data<br />
+          <strong>Body:</strong> JSON<br />
+          <strong>Body Content:</strong> {{ $json }}
+        </div>
+      </div>
+
+      <div class="test-data-section">
+        <h3>📊 Load Data from Google Sheets</h3>
+        <div class="input-row">
+          <label>Sheet Tab Name:</label>
+          <input
+            type="text"
+            id="sheetTab"
+            value="august"
+            placeholder="Enter tab name (e.g. july, august)"
+          />
+        </div>
+        <div class="input-row">
+          <label>Compare With:</label>
+          <input
+            type="text"
+            id="compareSheet"
+            value=""
+            placeholder="Enter second sheet to compare (optional)"
+          />
+        </div>
+        <div class="controls">
+          <button class="btn" onclick="fetchFromGoogleSheets()">
+            🔥 Fetch from Google Sheets
+          </button>
+          <button class="btn btn-secondary" onclick="fetchAndCompareSheets()">
+            🔄 Compare Two Sheets
+          </button>
+          <button class="btn btn-secondary" onclick="loadTestData()">
+            🧪 Load Test Data
+          </button>
+          <button class="btn" onclick="clearData()">🗑️ Clear Data</button>
+          <button class="btn btn-secondary" onclick="exportToExcel()">
+            📊 Export to Excel
+          </button>
+        </div>
+        <p>
+          <small>Sheet ID: 1RCYrnoRL3_0ZVKTyxJknVdxJ5kK_eftonoys7KJg1MQ</small>
+        </p>
+      </div>
+
+      <!-- Multi-Month Comparison Section -->
+      <div class="test-data-section">
+        <h3>📈 Multi-Month Performance Comparison</h3>
+
+        <div class="month-tabs" id="monthTabs">
+          <div class="month-tab active" data-mode="single">
+            Current Month View
+          </div>
+          <div class="month-tab" data-mode="comparison">Compare Months</div>
+        </div>
+
+        <div
+          id="comparisonControls"
+          class="comparison-controls"
+          style="display: none"
+        >
+          <h4>Select months to compare:</h4>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              flex-wrap: wrap;
+            "
+          >
+            <select id="month1Select" style="padding: 8px; border-radius: 4px">
+              <option value="august" selected>August 2025 (New Format)</option>
+              <option value="july">July 2025 (Old Format)</option>
+              <option value="june">June 2025</option>
+              <option value="may">May 2025</option>
+              <option value="april">April 2025</option>
+              <option value="march">March 2025</option>
+            </select>
+            <span style="font-weight: bold">vs</span>
+            <select id="month2Select" style="padding: 8px; border-radius: 4px">
+              <option value="july" selected>July 2025 (Old Format)</option>
+              <option value="august">August 2025 (New Format)</option>
+              <option value="june">June 2025</option>
+              <option value="may">May 2025</option>
+              <option value="april">April 2025</option>
+              <option value="march">March 2025</option>
+            </select>
+            <button class="btn btn-secondary" onclick="loadMonthlyComparison()">
+              📊 Compare Performance
+            </button>
+          </div>
+          <p>
+            <small
+              >💡 Tip: Dashboard automatically detects format differences
+              between months</small
+            >
+          </p>
+        </div>
+
+        <div class="controls">
+          <button class="btn" onclick="loadHistoricalData()">
+            📚 Load Historical Data
+          </button>
+          <button class="btn btn-secondary" onclick="exportComparisonToExcel()">
+            📊 Export Multi-Month Report
+          </button>
+        </div>
+      </div>
+
+      <!-- Format Debugging Section -->
+      <div
+        class="test-data-section"
+        style="background: #f0f8ff; border-left-color: #2196f3"
+      >
+        <h3>🔍 Format Detection & Debugging</h3>
+        <div class="controls">
+          <button class="btn btn-secondary" onclick="debugSheetHeaders()">
+            🔍 Debug Sheet Headers
+          </button>
+          <button class="btn btn-secondary" onclick="showFormatMapping()">
+            📋 Show Format Mappings
+          </button>
+          <button class="btn btn-secondary" onclick="testBothFormats()">
+            🧪 Test Both Formats
+          </button>
+        </div>
+        <div id="debugOutput" class="debug-output" style="display: none">
+          <h4>Debug Information:</h4>
+          <div
+            id="debugContent"
+            class="code-block"
+            style="max-height: 300px; overflow-y: auto"
+          ></div>
+        </div>
+      </div>
+
+      <div id="status" class="status">
+        Waiting for data from N8N workflow...
+      </div>
+
+      <div id="employeeReports"></div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <!-- Main Application Script -->
+    <script src="script.js"></script>
+  </body>
+</html>
