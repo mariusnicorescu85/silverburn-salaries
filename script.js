@@ -814,7 +814,8 @@ function addShopSummarySection(container) {
     (sum, e) => sum + (e.workedDays || 0),
     0
   );
-  const avgsaleshour = totalHours > 0 ? shopMetrics.totalSales / totalHours : 0;
+  const avgSalesPerHour =
+    totalHours > 0 ? shopMetrics.totalSales / totalHours : 0;
 
   const summarySection = document.createElement("div");
   summarySection.className = "employee-section shop-summary";
@@ -853,19 +854,17 @@ function addShopSummarySection(container) {
         </tr>
         <tr>
           <td>Total Hours Worked</td>
-          <td>${shopMetrics.totalHours.toFixed(2)}</td>
+          <td>${totalHours.toFixed(2)}</td>
           <td>Combined work hours across all employees</td>
         </tr>
         <tr>
           <td>Total Working Days</td>
-          <td>${shopMetrics.totalDays}</td>
+          <td>${totalDays}</td>
           <td>Combined working days across all employees</td>
         </tr>
         <tr>
           <td>Average Sales per Hour</td>
-          <td class="currency">£${(
-            shopMetrics.totalSales / shopMetrics.totalHours
-          ).toFixed(2)}</td>
+          <td class="currency">£${avgSalesPerHour.toFixed(2)}</td>
           <td>Shop productivity: sales generated per hour worked</td>
         </tr>
         <tr>
