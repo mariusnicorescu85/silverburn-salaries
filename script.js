@@ -806,6 +806,16 @@ function addShopSummarySection(container) {
   const formatBadge =
     detectedFormat === "brava_august" ? "NEW FORMAT" : "STANDARD";
 
+  const totalHours = employeeData.reduce(
+    (sum, e) => sum + (e.workedHours || 0),
+    0
+  );
+  const totalDays = employeeData.reduce(
+    (sum, e) => sum + (e.workedDays || 0),
+    0
+  );
+  const avgsaleshour = totalHours > 0 ? shopMetrics.totalSales / totalHours : 0;
+
   const summarySection = document.createElement("div");
   summarySection.className = "employee-section shop-summary";
   summarySection.innerHTML = `
