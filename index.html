@@ -10,7 +10,7 @@
     <div class="container">
       <div class="header">
         <h1>Employee Payment Report</h1>
-        <p>🔄 Multi-Format Support (July & August+)</p>
+        <p>Multi-Format Support (July & August+)</p>
         <p>Last Updated: <span id="lastUpdated">Not yet loaded</span></p>
         <div id="formatStatus" class="format-status">
           Format Detection: <span id="detectedFormat">Waiting for data...</span>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="api-info">
-        <h3>🔗 N8N Integration Instructions</h3>
+        <h3>N8N Integration Instructions</h3>
         <p>
           <strong
             >Updated for new Brava CSV format! This dashboard now automatically
@@ -26,8 +26,8 @@
           >
         </p>
         <ul>
-          <li>📅 <strong>July & Earlier:</strong> Original format</li>
-          <li>🆕 <strong>August & Later:</strong> New Brava CSV format</li>
+          <li><strong>July & Earlier:</strong> Original format</li>
+          <li><strong>August & Later:</strong> New Brava CSV format</li>
         </ul>
 
         <div class="code-block">
@@ -40,7 +40,7 @@
       </div>
 
       <div class="test-data-section">
-        <h3>📊 Load Data from Google Sheets</h3>
+        <h3>Load Data from Google Sheets</h3>
         <div class="input-row">
           <label>Sheet Tab Name:</label>
           <input
@@ -61,17 +61,17 @@
         </div>
         <div class="controls">
           <button class="btn" onclick="fetchFromGoogleSheets()">
-            🔥 Fetch from Google Sheets
+            Fetch from Google Sheets
           </button>
           <button class="btn btn-secondary" onclick="fetchAndCompareSheets()">
-            🔄 Compare Two Sheets
+            Compare Two Sheets
           </button>
           <button class="btn btn-secondary" onclick="loadTestData()">
-            🧪 Load Test Data
+            Load Test Data
           </button>
-          <button class="btn" onclick="clearData()">🗑️ Clear Data</button>
+          <button class="btn" onclick="clearData()">Clear Data</button>
           <button class="btn btn-secondary" onclick="exportToExcel()">
-            📊 Export to Excel
+            Export to Excel
           </button>
         </div>
         <p>
@@ -81,7 +81,7 @@
 
       <!-- Multi-Month Comparison Section -->
       <div class="test-data-section">
-        <h3>📈 Multi-Month Performance Comparison</h3>
+        <h3>Multi-Month Performance Comparison</h3>
 
         <div class="month-tabs" id="monthTabs">
           <div class="month-tab active" data-mode="single">
@@ -122,23 +122,23 @@
               <option value="march">March 2025</option>
             </select>
             <button class="btn btn-secondary" onclick="loadMonthlyComparison()">
-              📊 Compare Performance
+              Compare Performance
             </button>
           </div>
           <p>
             <small
-              >💡 Tip: Dashboard automatically detects format differences
-              between months</small
+              >Tip: Dashboard automatically detects format differences between
+              months</small
             >
           </p>
         </div>
 
         <div class="controls">
           <button class="btn" onclick="loadHistoricalData()">
-            📚 Load Historical Data
+            Load Historical Data
           </button>
           <button class="btn btn-secondary" onclick="exportComparisonToExcel()">
-            📊 Export Multi-Month Report
+            Export Multi-Month Report
           </button>
         </div>
       </div>
@@ -148,16 +148,16 @@
         class="test-data-section"
         style="background: #f0f8ff; border-left-color: #2196f3"
       >
-        <h3>🔍 Format Detection & Debugging</h3>
+        <h3>Format Detection & Debugging</h3>
         <div class="controls">
           <button class="btn btn-secondary" onclick="debugSheetHeaders()">
-            🔍 Debug Sheet Headers
+            Debug Sheet Headers
           </button>
           <button class="btn btn-secondary" onclick="showFormatMapping()">
-            📋 Show Format Mappings
+            Show Format Mappings
           </button>
           <button class="btn btn-secondary" onclick="testBothFormats()">
-            🧪 Test Both Formats
+            Test Both Formats
           </button>
         </div>
         <div id="debugOutput" class="debug-output" style="display: none">
